@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- reset css -->
+    <link rel="stylesheet" href="./css/reset.css">
+    <title>Report07</title>
+    <style>
+        .clearfix::after{
+            content: '';
+            display: block;
+            clear: both;
+        }
+        :root{
+
+        }
+        .wrap{
+            width: 1200px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        .container{
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header{
+            /* background-color: rgba(0, 0, 0, 0.3); */
+            height: 100px;
+            z-index: 10;
+        }
+        .f-container{
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            align-items: flex-end;
+            height: 100px;
+        }
+        
+        .main-nav{
+            display: flex;
+            flex-flow: row nowrap;
+        }
+        .main-nav>li{        
+            position: relative;
+            border: 2px solid #000;
+            border-right: none;
+        }
+        .main-nav>li>a{
+            display: block;
+            padding: 12.5px 48px;        
+            font-weight: 700;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        
+        .main-nav>li:last-child{            
+            border-right: 2px solid #000;    
+        }
+        .main-nav>li>a:hover{
+            background-color: #000;
+            color: #eee;
+        }
+
+        .sub-container{
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: flex-end;          
+        }
+
+        .sub-nav{
+            display: none;
+            margin: auto 1px;   
+            width: 160.41px;
+            background-color: #000;
+            z-index: 10;        
+            color: #eee;
+        }
+        .sub-nav>li{
+            text-align: center;
+        }
+        .sub-nav:last-child{
+            margin-right: 2px;
+        }
+        .sub-nav>li:hover{
+            background-color: #eee;
+            color: #000;
+        }
+        
+        
+
+        .main-contents{
+            
+            
+        }
+        .slider{
+            /* display: none; */
+            position: relative;   
+            height: 300px;
+        }
+        .btn-move{
+            
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            
+            z-index: 8;
+
+            cursor: pointer;
+        }
+        .btn-move>div{
+            height: 40px;
+            width: 40px;
+            border: 1px solid #333;
+            border-radius: 50%;
+            background-color: #eee;
+            text-align: center;
+            line-height: 30px;
+            font-weight: 900;
+            font-size: 30px;
+        }
+        .btn-prev{
+            float: left;
+        }
+        .btn-next{
+            float: right;
+        }
+        .slider>.slide{           
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: 0.5s;
+        }
+        .slide>img{
+            height: 100%;
+        }
+        
+        .slider .active{
+            opacity: 1;
+        }
+
+        .sub-contents{
+            height: 200px;
+        }
+
+        .not-gal-ban{
+            padding-top: 10px;
+            display: flex;
+            flex-flow: row nowrap;
+        }
+
+        .not-gal-ban>article{
+            flex:1;
+        }
+        article>h3{
+            text-align: center;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .notice th{
+            padding: 0 0 10px 30px;
+            text-align: left;
+        }
+        .notice tr>td:first-child{
+            width: 240px;
+        }
+        .notice tr>td:last-child{
+            width: 140px;
+        }
+
+        .gallery{
+            
+        }
+
+        .g-container{
+            display: flex;
+            flex-flow: row wrap;
+            height: 100%;
+            width: 100%;
+        }
+        .gallery .img-box{
+            flex: 1;
+            
+        }
+
+        .banner img{
+            height: 140px;
+            width: 100%;
+        }
+
+        .footer{
+            margin-top: 10px;
+        }
+
+        .footer .container{
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .footer .container .logo{
+            flex: 1;
+        }
+        .footer .container .copyright{
+            flex: 4;
+            padding-left: 250px;
+            text-align: left;
+            align-self:flex-end;
+        }
+        .footer .container .family{
+            flex: 1;
+            position: absolute;
+            right: 40px;
+            top: 0;
+            border: 1px solid #333;
+            padding: 10px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .footer .family:hover{
+            background-color: #333;
+            color: #eee;
+        }
+    
+        .footer .family .f-list{           
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: calc(100% + 1px);
+            border: 1px solid #333;
+            border-radius: 4px;
+            background-color: #fff;
+            color: #333;
+            display: none;
+        }
+        .footer .family .f-list li{
+            padding: 10px;
+        }
+        .footer .family .f-list li:hover{
+            background-color: #333;
+            color: #eee;
+        }
+        
+
+    </style>
+</head>
+<body>
+    <section class="wrap">
+        <header class="header">
+            <div class="container">
+                <div class="f-container">
+                    <h1>
+                        <div class="logo img-box">
+                            <a href="#"><img src="./images/img-logo.png" alt="로고이미지"></a>
+                        </div>
+                    </h1>
+
+                    <nav>
+                        <ul class="main-nav">
+                            <li>
+                                <a href="#">MENU-1</a>
+                            </li>
+                            <li>
+                                <a href="#">MENU-2</a>
+                            </li>
+                            <li>
+                                <a href="#">MENU-3</a>
+                            </li>
+                            <li>
+                                <a href="#">MENU-4</a>    
+                            </li>
+                        </ul>
+                    </nav>   
+                </div>
+
+                <div class="sub-container">
+                    <ul class="sub-nav menu-1">
+                        <li><a href="#">SubMenu-1</a></li>
+                        <li><a href="#">SubMenu-2</a></li>
+                        <li><a href="#">SubMenu-3</a></li>
+                        <li><a href="#">SubMenu-4</a></li>
+                    </ul>
+                    <ul class="sub-nav menu-2">
+                        <li><a href="#">SubMenu-1</a></li>
+                        <li><a href="#">SubMenu-2</a></li>
+                        <li><a href="#">SubMenu-3</a></li>
+                        <li><a href="#">SubMenu-4</a></li>
+                    </ul>
+                    <ul class="sub-nav menu-3">
+                        <li><a href="#">SubMenu-1</a></li>
+                        <li><a href="#">SubMenu-2</a></li>
+                        <li><a href="#">SubMenu-3</a></li>
+                        <li><a href="#">SubMenu-4</a></li>
+                    </ul>
+                    <ul class="sub-nav menu-4">
+                        <li><a href="#">SubMenu-1</a></li>
+                        <li><a href="#">SubMenu-2</a></li>
+                        <li><a href="#">SubMenu-3</a></li>
+                        <li><a href="#">SubMenu-4</a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <section class="sec main-contents">
+            <div class="container">
+                <div class="slider clearfix">
+                    <div class="btn-move">
+                        <div class="btn-prev">&lt</div>
+                        <div class="btn-next">&gt</div>
+                    </div>
+                    
+                    <div class="slide slide01 active">
+                        <img src="./images/img-slide01.jpg" alt="우주1">
+                    </div>
+                    <div class="slide slide02">
+                        <img src="./images/img-slide02.jpg" alt="우주2">
+                    </div>
+                    <div class="slide slide03">
+                        <img src="./images/img-slide03.jpg" alt="우주3">
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+
+        <section class="sec sub-contents">
+            <div class="container">
+                <div class="not-gal-ban">
+                    <article class="notice">
+                        <h3>공지사항</h3>
+                        <table>
+                            <th>제목</th>
+                            <th>날짜</th>
+                            <tr>
+                                <td><a href="#">영업시간 10시 연장</a></td>
+                                <td>2022-02-22</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">TSMC는 엔비디아, 인텔..</a></td>
+                                <td>2022-02-21</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">'종전선언과 그 너머'</a></td>
+                                <td>2022-02-20</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">러시아와 우크라이나</a></td>
+                                <td>2022-02-16</td>
+                            </tr>
+                            
+                        </table>
+                    </article>
+
+                    <article class="gallery">
+                        <h3>갤러리</h3>
+                        <div class="g-container">
+                            <div class="img-box gal01">
+                                <img src="./images/img-gal01.png" alt="우주선01">
+                            </div>
+                            <div class="img-box gal02">
+                                <img src="./images/img-gal02.png" alt="우주선02">
+                            </div>
+                            <div class="img-box gal03">
+                                <img src="./images/img-gal03.png" alt="우주선03">
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="banner">
+                        <h3>배너</h3>
+                        <div class="img-box">
+                            <img src="./images/img-banner.jpg" alt="배너">
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="logo img-box">
+                    <a href="#"><img src="./images/img-logo.png" alt="로고이미지2"></a>
+                </div>
+                <div class="copyright">
+                    <p>COPYRIGHT 2022 Srik. ALL RIGHTS RESERVED</p>
+                </div>
+                <div class="family">
+                    <span>패밀리사이트</span>
+                    <ul class="f-list no-active">
+                        <li><a href="#">화성가자</a></li>
+                        <li><a href="#">달 가자</a></li>
+                        <li><a href="#">천문대<br>찾아보기</a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+
+    </section>
+
+    <script>
+        let sNav = document.querySelectorAll('.sub-nav');
+        let mainNav = document.querySelector('.main-nav');
+        let sCtn = document.querySelector('.sub-container');
+        
+        mainNav.onmouseenter = function(){
+            for(let idx=0; idx<sNav.length; idx++){
+                sNav[idx].style.display = 'block';
+            }
+        }
+        mainNav.onmouseleave = function(){
+            for(let idx=0; idx<sNav.length; idx++){
+                sNav[idx].style.display = 'none';
+            }
+        }
+        sCtn.onmouseenter = function(){
+            for(let idx=0; idx<sNav.length; idx++){
+                sNav[idx].style.display = 'block';
+            }
+        }
+        sCtn.onmouseleave = function(){
+            for(let idx=0; idx<sNav.length; idx++){
+                sNav[idx].style.display = 'none';
+            }
+        }
+
+        function moveSlider(num){
+            let slide = document.querySelectorAll('.slide');
+            let cIdx;
+            for(let idx=0; idx<slide.length; idx++){             
+                if(slide[idx].classList.contains('active')){
+                    cIdx = idx;
+                }
+                slide[idx].classList.remove("active");
+            }
+
+            if(num<0){
+                if(cIdx == 0){
+                    cIdx = 3;
+                }
+                cIdx = cIdx - 1;
+            }else{
+                cIdx = (cIdx + num) % 3;
+            }                
+            slide[cIdx].classList.add("active");
+            
+        }
+        document.querySelector('.btn-prev').onclick = function(){
+            moveSlider(-1);
+        }
+        document.querySelector('.btn-next').onclick = function(){
+            moveSlider(1);
+        }
+
+        setInterval(function(){
+            moveSlider(1);
+        },3000);
+
+        let family = document.querySelector('.family');
+        let fList = document.querySelector('.f-list');
+
+        family.onmouseenter = function(){ 
+            fList.style.display = 'block';
+        }
+        family.onmouseleave = function(){
+            fList.style.display = 'none';
+        }
+        
+        
+    </script>
+</body>
+</html>

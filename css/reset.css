@@ -1,0 +1,60 @@
+@charset 'utf-8';
+
+
+/* 
+        *(all)로 하는 것 보다 하나하나 엘리먼트를 하는게 속도가 훨씬 빠르다. 
+*/
+
+/* CSS Reset */
+
+/* 공통적으로 초기화 할 부분 */
+html, head, body, title, h1, h2, h3, h4, h5, h6, p, ul, ol, li,
+table, tr, td, thead, tbody, tfoot, th, div, span, a, img, br, hr,
+pre, strong, form, label, legend, input, select, textarea, fieldset,
+figure, figcaption, aside, address, article, audio, video, picture, option, iframe{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* 링크 초기화 */
+/* 글꼴 색상은 부모요소를 상속받음 */
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+/* 이미 초기화 */
+/* 이미지 크기는 100%로 하면 부모에서 크기를 상속 받는다. */
+img{
+    width: 100%;
+
+    /* 
+    reset 했는데도 불구하고 이미지 사이의 여백이 생기게 되면
+    vertical-align: top 혹은 bottom 을 해주면 공백이 사라지게 된다.
+    (글자 위 아래간 간격때문에 생기는 문제)  
+    */
+    vertical-align: top;
+}
+
+/* 목록 초기화 */
+ol, ul, li{
+    list-style: none;
+}
+
+h1, h2, h3, h4, h5, h6, strong{
+    font-weight: 400;
+    font-size: inherit;
+}
+
+img, span, video, audio, label, input, textarea, select, iframe{
+    display:block;
+}
+
+.clearfix::after{
+    content: '';
+    display: block;
+    clear: both;
+}
+
